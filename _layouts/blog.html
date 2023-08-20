@@ -1,0 +1,330 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+{% assign text-font = site.data.font.font.text %}
+
+<!-- styling -->
+<!-- background colour -->
+{% case site.data.portfolio-config.colour-config.post-background-colour %}
+
+{% when 'primary' %}
+{% assign post-background-colour = 'bg-primary' %}
+{% when 'secondary' %}
+{% assign post-background-colour = 'bg-secondary' %}
+{% when 'tertiary' %}
+{% assign post-background-colour = 'bg-tertiary' %}
+{% when 'black' %}
+{% assign post-background-colour = 'bg-black' %}
+{% when 'grey' %}
+{% assign post-background-colour = 'bg-gray-500' %}
+{% when 'light-grey' %}
+{% assign post-background-colour = 'bg-gray-100' %}
+{% when 'transparent' %}
+{% assign post-background-colour = 'bg-transparent' %}
+{% else %}
+{% assign post-background-colour = 'bg-white' %}
+
+{% endcase %}
+
+
+<!-- site.title text colour -->
+{% case data.portfolio-config.colour-config.title-colour %}
+
+{% when 'primary' %}
+{% assign blog-title-text-colour = 'text-primary' %}
+{% when 'secondary' %}
+{% assign blog-title-text-colour = 'text-secondary' %}
+{% when 'tertiary' %}
+{% assign blog-title-text-colour = 'text-tertiary' %}
+{% when 'grey' %}
+{% assign blog-title-text-colour = 'text-gray-500' %}
+{% when 'white' %}
+{% assign blog-title-text-colour = 'text-white' %}
+{% when 'light-grey' %}
+{% assign blog-title-text-colour = 'text-gray-100' %}
+{% when 'transparent' %}
+{% assign blog-title-text-colour = 'text-transparent' %}
+{% else %}
+{% assign blog-title-text-colour = 'black' %}
+
+{% endcase %}
+
+
+<!-- description text colour -->
+{% case site.data.portfolio-config.colour-config.description-colour %}
+
+{% when 'primary' %}
+{% assign description-text-colour = 'text-primary' %}
+{% when 'secondary' %}
+{% assign description-text-colour = 'text-secondary' %}
+{% when 'tertiary' %}
+{% assign description-text-colour = 'text-tertiary' %}
+{% when 'light-grey' %}
+{% assign description-text-colour = 'text-gray-100' %}
+{% when 'white' %}
+{% assign description-text-colour = 'text-white' %}
+{% when 'black' %}
+{% assign description-text-colour = 'text-black' %}
+{% when 'transparent' %}
+{% assign description-text-colour = 'text-transparent' %}
+{% else %}
+{% assign description-text-colour = 'text-gray-500' %}
+
+{% endcase %}
+
+
+<!-- date text colour -->
+{% case site.data.portfolio-config.colour-config.date-colour %}
+
+{% when 'primary' %}
+{% assign date-text-colour = 'text-primary' %}
+{% when 'secondary' %}
+{% assign date-text-colour = 'text-secondary' %}
+{% when 'tertiary' %}
+{% assign date-text-colour = 'text-tertiary' %}
+{% when 'black' %}
+{% assign date-text-colour = 'text-black' %}
+{% when 'white' %}
+{% assign date-text-colour = 'text-white' %}
+{% when 'light-grey' %}
+{% assign date-text-colour = 'text-gray-100' %}
+{% when 'transparent' %}
+{% assign date-text-colour = 'text-transparent' %}
+{% else %}
+{% assign date-text-colour = 'text-gray-500' %}
+
+{% endcase %}
+
+
+<!-- category background colour -->
+{% case site.data.portfolio-config.category-config.background-colour %}
+
+{% when 'white' %}
+{% assign category-background-colour = 'bg-white' %}
+{% when 'secondary' %}
+{% assign category-background-colour = 'bg-secondary' %}
+{% when 'tertiary' %}
+{% assign category-background-colour = 'bg-tertiary' %}
+{% when 'black' %}
+{% assign category-background-colour = 'bg-black' %}
+{% when 'grey' %}
+{% assign category-background-colour = 'bg-gray-500' %}
+{% when 'light-grey' %}
+{% assign category-background-colour = 'bg-gray-100' %}
+{% when 'transparent' %}
+{% assign category-background-colour = 'bg-transparent' %}
+{% else %}
+{% assign category-background-colour = 'bg-primary' %}
+
+{% endcase %}
+
+
+<!-- category text colour -->
+{% case site.data.portfolio-config.category-config.text-colour %}
+
+{% when 'primary' %}
+{% assign category-text-colour = 'text-primary' %}
+{% when 'secondary' %}
+{% assign category-text-colour = 'text-secondary' %}
+{% when 'tertiary' %}
+{% assign category-text-colour = 'text-tertiary' %}
+{% when 'black' %}
+{% assign category-text-colour = 'text-black' %}
+{% when 'grey' %}
+{% assign category-text-colour = 'text-gray-500' %}
+{% when 'light-grey' %}
+{% assign category-text-colour = 'text-gray-100' %}
+{% when 'transparent' %}
+{% assign category-text-colour = 'text-transparent' %}
+{% else %}
+{% assign category-text-colour = 'text-white' %}
+
+{% endcase %}
+
+
+<!-- setting the background colour for the portfolio -->
+{% case site.data.portfolio-config.colour-config.background-colour %}
+
+{% when 'primary' %}
+{% assign background-colour = 'bg-bgPrimary' %}
+{% when 'secondary' %}
+{% assign background-colour = 'bg-bgSecondary' %}
+{% when 'tertiary' %}
+{% assign background-colour = 'bg-bgTertiary' %}
+{% else %}
+{% assign background-colour = 'bg-white' %}
+
+{% endcase %}
+
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-UK" }}">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Portfolio - {{ site.title }}</title>
+    
+    {% if site.favicon %}
+      <link rel="shortcut icon" type="image/svg" href="{{ site.favicon }}">
+    {% else %}
+      <link rel="shortcut icon" type="image/svg" href="/assets/site/logo.svg">
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+    <!-- netlify identity widget -->
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- flowbite js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <!-- preline js -->
+    <script src="https://cdn.jsdelivr.net/npm/preline@1.7.0/dist/preline.js"></script>
+    <!-- Adding Analytics -->
+    {% if jekyll.environment == 'production' %}
+      <script>
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="GDDtE8uivSdjzyPe9bLTOl0XQHEZaQvN";;analytics.SNIPPET_VERSION="4.15.3";
+        analytics.load("GDDtE8uivSdjzyPe9bLTOl0XQHEZaQvN");
+        analytics.page();
+        }}();
+    </script>
+    {% endif %}
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- &family=Nunito:wght@300&family=Oswald&family=Playfair+Display&family=Press+Start+2P&family=Rubik&display=swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
+
+    <!-- seo plugin -->
+    {% seo %}
+  </head>
+
+  
+  <body class="{{ background-colour }}">
+    <!-- navbar include -->
+    {% include navbar.html %}
+
+    <!-- include for facebook messenger -->
+    {% if site.data.messenger.visible %}
+      {% include messenger.html %}
+    {% endif %}
+
+
+
+    <!-- rendering the display posts component -->
+    <section class="pt-20 py-8">
+        <div class="prose xl:prose-xl mx-auto">
+            <h1 class="{{ title-font }} text-center">Portfolio</h1>
+        </div>
+        <div class="flex items-center h-fit">
+            <div class="p-4 mx-auto max-w-7xl">
+                <div class="grid grid-cols-1 gap-4 lg:gap-8 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {% for post in paginator.posts %}
+    
+                        <a class="mb-0 overflow-hidden {{ post-background-colour }} rounded shadow" href="{{ post.url }}">
+                            <div class="relative overflow-hidden h-72">
+                                <img class="object-cover w-full h-full transition-all hover:scale-110"
+                                    src="{{ post.image }}" alt="">
+                            </div>
+                            <div class="relative z-20 p-8 -mt-12 ">
+                                <span class="inline-block px-4 py-2 mb-5 text-xs rounded {{ subtitle-font }} {{ category-text-colour }} {{ category-background-colour }}">
+                                    {{ post.category }}
+                                </span>
+                                <span class="block mb-2 text-xs font-semibold {{ subtitle-font }} {{ date-text-colour }} uppercase">
+                                    {{ post.author }} {{ post.date | date: "%A, %B %d, %Y" }}
+                                </span>
+                                <h2 class="mb-3 text-2xl font-bold leading-9 {{ title-font }} {{ blog-title-text-colour }}">
+                                    {{ post.title }}
+                                </h2>
+                                <p class="text-base leading-7 {{ text-font }} {{ description-text-colour }}">
+                                    {{ post.description }}
+                                </p>
+                            </div>
+                        </a>
+    
+                    {% endfor %}
+    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% assign pagination = site.data.portfolio-config.pagination-colours %}
+
+    <style>
+        ul.pager { text-align: center; list-style: none; }
+        ul.pager li {display: inline;border: 1px solid black; padding: 10px; margin: 5px;}
+      </style>
+
+
+      <!-- flowbite paginator -->
+      {% if paginator.total_pages > 1 %}
+      <div class="w-full py-8 {{ background-colour }}y">
+
+        <nav aria-label="Page navigation example" class="w-min mx-auto">
+            <ul class="flex items-center -space-x-px h-8 text-sm w-min">
+            <!-- code for previous page -->
+            {% if paginator.previous_page %}
+                <li>
+                    <a href="{{ paginator.previous_page_path | relative_url }}" class="flex items-center justify-center px-3 h-8 ml-0 leading-tight {{ pagination.text-colour }} {{ pagination.text-hover-colour }} {{ pagination.background-colour }} {{ pagination.background-hover-colour }} bg-white border border-gray-300 rounded-l-lg">
+                    <span class="sr-only">Previous</span>
+                    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                    </svg>
+                    </a>
+                </li>
+            {% endif %}
+
+            <!-- for every page in paginator -->
+            {% for page in (1..paginator.total_pages) %}
+
+                <!-- if current page is same page in paginator -->
+                {% if page == paginator.page %}
+                <li>
+                    <a href="" aria-current="page" class="z-10 flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 {{ pagination.active-text-colour }} {{ pagination.active-text-hover-colour }} {{ pagination.active-background-colour }} {{ pagination.active-background-hover-colour }}">{{ page }}</a>
+                </li>
+
+                <!-- if page is the first page -->
+                {% elsif page == 1 %}
+                <li>
+                    <a href="{{ '/portfolio' | relative_url }}" class="flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 {{ pagination.text-colour }} {{ pagination.text-hover-colour }} {{ pagination.background-colour }} {{ pagination.background-hover-colour }}">{{ page }}</a>
+                </li>
+
+                <!-- for every other page -->
+                {% else %}
+                <li>
+                    <a href="{{ 'portfolio' | append: site.paginate_path | relative_url | replace: ':num', '/' | append: page }}" class="flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 {{ pagination.text-colour }} {{ pagination.text-hover-colour }} {{ pagination.background-colour }} {{ pagination.background-hover-colour }}">{{ page }}</a>
+                </li>
+                {% endif %}
+
+
+
+
+
+            {% endfor %}
+            
+
+            <!-- code for next page -->
+            {% if paginator.next_page %}
+                <li>
+                    <a href="{{ paginator.next_page_path | relative_url }}" class="flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 rounded-r-lg {{ pagination.text-colour }} {{ pagination.text-hover-colour }} {{ pagination.background-colour }} {{ pagination.background-hover-colour }}">
+                    <span class="sr-only">Next</span>
+                    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    </a>
+                </li>
+            {% endif %}
+            </ul>
+        </nav>
+  
+      </div>
+      {% endif %}
+
+
+    <!-- adding in the global footer -->
+    {% include footer.html %}
+
+  </body>
+</html>

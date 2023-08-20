@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-UK" }}">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="description" content="{{ page.description }}">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    
+    {% if site.favicon %}
+      <link rel="shortcut icon" type="image/svg" href="{{ site.favicon }}">
+    {% else %}
+      <link rel="shortcut icon" type="image/svg" href="/assets/site/logo.svg">
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+    <!-- netlify identity widget -->
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- flowbite js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <!-- preline js -->
+    <script src="https://cdn.jsdelivr.net/npm/preline@1.7.0/dist/preline.js"></script>
+    <!-- Adding Analytics -->
+    {% if jekyll.environment == 'production' %}
+      <script>
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="GDDtE8uivSdjzyPe9bLTOl0XQHEZaQvN";;analytics.SNIPPET_VERSION="4.15.3";
+        analytics.load("GDDtE8uivSdjzyPe9bLTOl0XQHEZaQvN");
+        analytics.page();
+        }}();
+    </script>
+    {% endif %}
+
+    <!-- function to scroll just above the content where it is being identified for the anchor tags -->
+    <script>
+            // The function actually applying the offset
+      function offsetAnchor() {
+          if(location.hash.length !== 0) {
+              window.scrollTo(window.scrollX, window.scrollY - 100);
+          }
+      }
+
+      // This will capture hash changes while on the page
+      window.addEventListener("hashchange", offsetAnchor);
+
+      // This is here so that when you enter the page with a hash,
+      // it can provide the offset in that case too. Having a timeout
+      // seems necessary to allow the browser to jump to the anchor first.
+      window.setTimeout(offsetAnchor, 1); // The delay of 1 is arbitrary and may not always work right (although it did in my testing).
+
+
+    </script>
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- &family=Nunito:wght@300&family=Oswald&family=Playfair+Display&family=Press+Start+2P&family=Rubik&display=swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
+
+    <!-- seo plugin -->
+    {% seo %}
+  </head>
+  <body style="background-color: {{ site.bgPrimary }};">
+    <!-- navbar include -->
+    {% include navbar.html %}
+
+    <!-- include for facebook messenger -->
+    {% if site.data.messenger.visible %}
+      {% include messenger.html %}
+    {% endif %}
+
+
+    <!-- this is the main for loop which iterates over all overhead in the markdown file to generate components based on the supplied data -->
+    <div class="pt-16 w-full">
+      {% if page.jumbotron.visible %}
+      <!-- Jumbotron section -->
+        {% include jumbotron.html 
+          title=page.jumbotron.title
+          subtitle=page.jumbotron.subtitle
+          title-colour=page.jumbotron.title-colour
+          subtitle-colour=page.jumbotron.subtitle-colour
+          button-one=page.jumbotron.button-one
+          button-two=page.jumbotron.button-two
+          background-image=page.jumbotron.background-image
+          height=page.jumbotron.height
+          text-alignment=page.jumbotron.text-alignment
+          overlay=page.jumbotron.overlay
+        %}
+      {% endif %}
+      {% for section in page.sections %} 
+        {% case section.type %}                                                                         
+        <!-- Hero Section -->
+          {% when "hero" %}
+            {% include hero.html 
+              title=section.title 
+              subtitle=section.subtitle 
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              anchor=section.anchor
+              image=section.image
+              background-colour=section.background-colour
+              button-one=section.button-one
+              button-two=section.button-two
+            %}
+        <!-- Callout Section -->
+          {% when "callout" %}
+            {% include callout.html 
+              title=section.title 
+              subtitle=section.subtitle 
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              background-colour=section.background-colour
+              button-one=section.button-one
+              button-two=section.button-two
+            %}
+          
+        <!-- FAQ/Accordion Section -->
+            {% when "accordion" %}
+              {% include accordion.html
+                title=section.title
+                subtitle=section.subtitle
+                title-colour=section.title-colour
+                subtitle-colour=section.subtitle-colour
+                background-colour=section.background-colour
+                items=section.items  
+                colour=section.colour
+              %}
+        <!-- Customer Logo Section -->
+          {% when "customer-logos" %}
+            {% include customer-logos.html
+              title=section.title
+              subtitle=section.subtitle
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              customer-logos=section.logos
+              background-colour=section.background-colour
+            %}
+        <!-- Basic Contact Form Section -->
+          {% when "contact-form" %}
+            {% include contact-form.html
+              design=section.design
+              title=section.title
+              subtitle=section.subtitle
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              form-id=section.form-id
+              colours=section.colours
+              name=section.name
+              email=section.email
+              phone=section.phone
+              query=section.query
+              message=section.message
+              background-colour=section.background-colour
+              input-background-colour=section.input-background-colour
+              input-text-colour=section.input-text-colour
+              input-text-box-colour=section.input-text-box-colour
+              input-placeholder-colour=section.input-placeholder-colour
+              submit-button=section.submit-button
+            %}
+        <!-- Gallery Section -->
+          {% when "gallery" %}
+            {% include gallery.html 
+              gallery-title=section.gallery-title 
+              images=section.images
+              background-colour=section.background-colour
+            %}
+        <!-- Pricing Section -->
+            {% when "pricing" %}
+              {% include pricing.html
+              title=section.title
+              subtitle=section.subtitle
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              background-colour=section.background-colour
+              card-config=section.card-config
+              switch=section.switch
+              discount=section.discount
+              pricing=section.pricing
+              table=section.table  
+              %}
+        <!-- Opening Hours Section -->
+          {% when "opening-hours" %}
+            {% include opening-hours.html 
+              title=section.title
+              subtitle=section.subtitle
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              colour=section.colour
+              background-colour=section.background-colour
+          %}
+
+        <!-- Carousel Section -->
+          {% when "carousel" %}
+            {% include advanced-carousel.html 
+              title=section.title
+              subtitle=section.subtitle
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              images=section.images
+              background-colour=section.background-colour
+            %}
+        <!-- Basic Map Section -->
+          {% when "basic-map" %}
+            {% include iframe.html
+              title=section.title
+              subtitle=section.subtitle
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              iframe=section.iframe
+              background-colour=section.background-colour
+          %}
+        <!-- Iframe Video Section -->
+          {% when "iframe" %}
+            {% include iframe.html
+              title=section.title
+              subtitle=section.subtitle
+              title-colour=section.title-colour
+              subtitle-colour=section.subtitle-colour
+              iframe=section.iframe
+              background-colour=section.background-colour
+          %}
+        <!-- Text Content Section -->
+          {% when "text-content" %}
+          {% include text-content.html
+            background-colour=section.background-colour
+            title=section.title
+            subtitle=section.subtitle
+            title-colour=section.subtitle-colour
+            subtitle-colour=section.subtitle-colour
+            text-colour=section.text-colour
+            anchor=section.anchor
+            title-alignment=section.title-alignment
+            text-alignment=section.text-alignment
+            Markdown=section.Markdown  
+          %}
+        <!-- Small Content Section -->
+          {% when "small-content-section" %}
+            {% include small-content-section.html 
+              title=section.title
+              description=section.description
+              image-one=section.image-one
+              image-two=section.image-two
+              background-colour=section.background-colour
+            %}
+          
+        {% endcase %}
+      {% endfor %}
+
+
+    </div>
+
+
+
+
+    <!-- content from the markdonw file is presented here -->
+    {% if page.content.size > 2 %}
+    <article class="prose lg:prose-xl mx-auto mt-24 p-4">
+      {{ content }}
+    </article>
+    {% endif %}
+
+    <!-- iframe script for all iframe components -->
+    <script>
+
+      // Get all iframes within the container
+      const container = document.getElementById('iframeContainer');
+
+      if (container) {
+        // Select all iframes within the container
+
+        const elems = document.body.getElementsByTagName("iframe");
+        for(let i = 0; i < elems.length; i++)
+        {
+          elems[i].setAttribute("class","w-full h-full rounded-lg");
+          elems[i].removeAttribute('height');
+          elems[i].removeAttribute('width');
+        }
+
+      }
+
+    </script>
+
+    <!-- adding in the global footer -->
+    {% include footer.html %}
+
+  </body>
+</html>

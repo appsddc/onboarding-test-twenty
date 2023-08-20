@@ -1,0 +1,34 @@
+secondaryColour: "#7C41B3"
+plugins:
+  - jekyll-postcss
+bgTertiaryColour: "#ececec"
+postcss:
+  cache: false
+logo: /assets/img/logo.svg
+primaryColour: "#9b51e0"
+bgPrimaryColour: "#fbf8ff"
+url: ""
+collections:
+  portfolio:
+    output: true
+title: Kleaver
+exclude:
+  - package.json
+  - postcss.config.js
+  - tailwind.config.js
+  - yarn.lock
+bgSecondaryColour: "#f5eefc"
+fontColour: "#434343"
+tertiaryColour: "#E1CBF6"
+baseurl: /
+
+gems:
+  - jekyll-paginate-v2
+pagination:
+  enabled: true
+  per_page: 9
+  permalink: '/page/:num/'
+  title: ' - page :num'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true

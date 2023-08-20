@@ -1,0 +1,79 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+
+{% assign colour = include.colour %}
+
+
+
+<section class="w-full {{ include.background-colour }}">
+  <div id="{{ include.anchor }}" class="max-w-screen-xl px-4 py-10 lg:py-14 mx-auto">
+    
+    <h1 class="mb-4 text-4xl font-extrabold {{ title-font }} {{ include.title-colour }} tracking-tight leading-none md:text-5xl xl:text-6xl text-center">{{ include.title }}</h1>
+    <p class="mb-8 text-lg font-normal {{ subtitle-font }} {{ include.subtitle-colour }} lg:text-xl text-center">{{ include.subtitle }}</p>
+
+    <div id="accordion-collapse" data-accordion="collapse" class="{{ subtitle-font }} ">
+
+        {% assign first-item = include.items | first %}
+        {% assign last-item = include.items | last %}
+        <h2 id="{{ first-item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-heading">
+          <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left {{ colour.title-colour }} border border-b-0 {{ colour.border-colour }} rounded-t-xl {{ colour.title-background-colour }} {{ colour.title-background-hover-colour }}" data-accordion-target="#{{ first-item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body" aria-expanded="true" aria-controls="{{ first-item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body">
+              <span>{{ first-item.title }}</span>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+          </button>
+        </h2>
+        <div id="{{ first-item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body" class="hidden" aria-labelledby="{{ first-item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-heading">
+          <div class="p-5 border border-b-0 {{ colour.content-background-colour }} {{ colour.border-colour }}">
+              <div class="mb-2 {{ colour.text-colour }} prose">{{ first-item.content | markdownify }}</div>
+          </div>
+        </div>
+
+
+        {% for item in include.items %}
+        {% if item != first-item and item != last-item %}
+          
+        <!-- for all items that arent the first -->
+        <h2 id="{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-heading">
+          <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left {{ colour.title-colour }} border border-b-0 {{ colour.border-colour }} {{ colour.title-background-colour }} {{ colour.title-background-hover-colour }}" data-accordion-target="#{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body" aria-expanded="false" aria-controls="{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body">
+            <span>{{ item.title }}</span>
+            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+            </svg>
+          </button>
+        </h2>
+        <div id="{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body" class="hidden" aria-labelledby="{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-heading">
+          <div class="p-5 border border-b-0 {{ colour.content-background-colour }} {{ colour.border-colour }}">
+            <div class="mb-2 {{ colour.text-colour }} prose">{{ item.content | markdownify }}</div>
+          </div>
+        </div>
+
+        
+        {% endif %}
+        
+        <!-- for the last item -->
+        {% if item == last-item and first-item != last-item %}
+        <h2 id="{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-heading">
+          <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left {{ colour.title-colour }} border {{ colour.border-colour }} {{ colour.title-background-colour }} {{ colour.title-background-hover-colour }}" data-accordion-target="#{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body" aria-expanded="false" aria-controls="{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body">
+            <span>{{ item.title }}</span>
+            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+            </svg>
+          </button>
+        </h2>
+        <div id="{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-body" class="hidden" aria-labelledby="{{ item.title | replace: ' ', '' | replace: '?', '' | replace: ':', '' | replace: '"', '' | replace: "'", '' }}-heading">
+          <div class="p-5 border border-t-0 rounded-b-xl {{ colour.content-background-colour }} {{ colour.border-colour }}">
+            <div class="mb-2 {{ colour.text-colour }} prose">{{ item.content | markdownify }}</div>
+          </div>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+
+
+
+
+      </div>
+  </div>
+</section>
+  

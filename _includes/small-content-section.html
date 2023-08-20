@@ -1,0 +1,28 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+
+{% case include.background-colour %}
+{% when 'primary' %}
+<section class="w-full bg-bgPrimary">
+{% when 'secondary' %}
+<section class="w-full bg-bgSecondary">
+{% when 'tertiary' %}
+<section class="w-full bg-bgTertiary">
+{% else %}
+<section class="w-full bg-bgDefault">
+{% endcase %}
+    <div id="{{ include.anchor }}" class="prose lg:prose-xl mx-auto p-4 pb-8">
+        <div class="gap-16 items-center max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+            <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+                <h1 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 {{ title-font }}">{{ include.title }}</h1>
+                <div class="{{ subtitle-font }}">
+                    {{ include.description | markdownify }}
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-8">
+                <img class="w-full rounded-lg" src="{{ include.image-one }}" alt="image-one">
+                <img class="mt-4 w-full lg:mt-10 rounded-lg" src="{{ include.image-two }}" alt="image-two">
+            </div>
+        </div>
+    </div>
+</section>

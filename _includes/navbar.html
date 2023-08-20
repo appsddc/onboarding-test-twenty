@@ -1,0 +1,45 @@
+<!-- font styles -->
+{% assign navbar-font = site.data.font.font.navbar %}
+{% assign button-font = site.data.font.font.button %}
+
+<!-- colours -->
+{% assign general = site.data.navigation.general %}
+{% assign button = site.data.navigation.action-button %}
+{% assign hamburger = site.data.navigation.hamburger %}
+{% assign mobile = site.data.navigation.mobile %}
+{% assign items = site.data.navigation.items %}
+
+<nav class="{{ general.background-colour }} {{ navbar-font }} fixed w-full z-50 top-0 left-0">
+  <!-- show banner check -->
+  {% if site.data.banner.visible %}
+    {% include banner.html %}
+  {% endif %}
+
+  <!-- title and icon -->
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+  <a href="/" class="flex items-center">
+      <img src="{{ site.logo }}" class="h-8 mr-3" alt="Logo">
+      <span class="self-center text-2xl font-semibold whitespace-nowrap {{ general.title-colour }}">{{ site.title }}</span>
+  </a>
+
+  <!-- navbar action button and hamburger -->
+  <div class="flex md:order-2 {{ button-font }}">
+      <a href='{{ button.href }}' type="button" class="{{ button.colour.text-colour }} {{ button.colour.text-hover-colour }} {{ button.colour.background-colour }} {{ button.colour.background-hover-colour }} {{ button.colour.border-colour }} {{ button.colour.border-hover-colour }} transition-colors duration-200 border-2 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 {{ button.visible }}">{{ button.text }}</a>
+      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 text-sm rounded-lg md:hidden border {{ hamburger.icon-colour }} {{ hamburger.icon-hover-colour }} {{ hamburger.background-colour }} {{ hamburger.background-hover-colour }} {{ hamburger.border-colour }} {{ hamburger.border-hover-colour }}" aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+      </button>
+  </div>
+
+  <!-- navbar items -->
+  <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+    <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg {{ mobile.background-colour }} {{ mobile.border-colour }} md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
+      {% for item in site.data.navigation.items %}
+        <li>
+          <a href="{{ item.link }}" class="block py-2 pl-3 pr-4 rounded md:hover:bg-transparent md:p-0 {{ mobile.background-hover-colour }} {{ general.text-colour }} {{ general.text-hover-colour }} {{ mobile.border-colour }}">{{ item.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  </div>
+</nav>

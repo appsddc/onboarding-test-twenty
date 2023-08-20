@@ -1,0 +1,328 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+{% assign button-font = site.data.font.font.button %}
+
+
+<!-- setting variables for colour configuration -->
+{% assign regular-card = include.card-config.regular-card %}
+{% assign regular-button = include.card-config.regular-button.colour %}
+{% assign highlighted-card = include.card-config.highlighted-card %}
+{% assign highlight-button = include.card-config.highlighted-button.colour %}
+
+
+<section class="w-full {{ include.background-colour }}">
+<!-- Pricing -->
+    <div id="{{ include.anchor }}" class="max-w-screen-xl px-4 py-10 lg:py-14 mx-auto">
+        <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+        <h1 class="text-2xl font-bold md:text-4xl md:leading-tight {{ title-font }} {{ include.title-colour }}">{{ include.title }}</h1>
+        <p class="mt-1 {{ subtitle-font }} {{ include.subtitle-colour }}">{{ include.subtitle }}</p>
+        </div>
+
+
+
+        {% assign count = 0 %}
+        {% if include.pricing.option-one.visible %}
+          {% assign count = count | plus: 1 %}
+        {% endif %}
+        {% if include.pricing.option-two.visible %}
+          {% assign count = count | plus: 1 %}
+        {% endif %}
+        {% if include.pricing.option-three.visible %}
+          {% assign count = count | plus: 1 %}
+        {% endif %}
+        {% if include.pricing.option-four.visible %}
+          {% assign count = count | plus: 1 %}
+        {% endif %}
+
+
+        {% case count %}
+          {% when 1 %}
+          <div class="mt-12 grid sm:grid-cols-1 lg:grid-cols-1 gap-6 lg:items-center">
+          {% when 2 %}
+          <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-2 gap-6 lg:items-center">
+          {% when 3 %}
+          <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:items-center">
+          {% else %}
+          <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:items-center">
+        {% endcase %}
+    
+        <!-- Grid -->
+
+            <!-- Card One -->
+            {% if include.pricing.option-one.visible %}
+
+            {% if include.pricing.option-one.highlight %}
+            <div class="flex flex-col border-2 {{ highlighted-card.border-colour }} {{ highlighted-card.background-colour }} text-center rounded-xl p-8 h-full">
+            {% else %}
+            <div class="flex flex-col border {{ regular-card.border-colour }} {{ regular-card.background-colour }} text-center rounded-xl p-8 h-full">
+            {% endif %}
+                {% if include.pricing.option-one.highlight %}
+                <p class="mx-auto w-fit gap-1.5 py-1.5 px-3 rounded-md text-xs {{ subtitle-font }} uppercase font-semibold {{ highlighted-card.message.text-colour }} {{ highlighted-card.message.background-colour }}">{{ highlighted-card.message.text }}</p>
+                <h4 class="font-medium text-lg {{ title-font }} {{ highlighted-card.title-colour }}">{{ include.pricing.option-one.name }}</h4>
+                <span class="mt-7 font-bold text-5xl {{ subtitle-font }} {{ highlighted-card.price-colour }}">{{ include.pricing.option-one.price }}</span>
+                <p class="mt-2 text-sm {{ subtitle-font }} {{ highlighted-card.description-colour }}">{{ include.pricing.option-one.description }}</p>
+                {% else %}
+                <h4 class="font-medium text-lg {{ title-font }} {{ regular-card.title-colour }}">{{ include.pricing.option-one.name }}</h4>
+                <span class="mt-7 font-bold text-5xl {{ subtitle-font }} {{ regular-card.price-colour }}">{{ include.pricing.option-one.price }}</span>
+                <p class="mt-2 text-sm {{ subtitle-font }} {{ regular-card.description-colour }}">{{ include.pricing.option-one.description }}</p>
+                {% endif %}
+
+                <!-- cycling through features in current pricing option -->
+                <ul class="mt-7 space-y-2.5 text-sm {{ subtitle-font }}">
+                {% for feature in include.pricing.option-one.features %}
+                <li class="flex space-x-2">
+                    {% if include.pricing.option-one.highlight %}
+                    <svg class="flex-shrink-0 h-5 w-5 {{ highlighted-card.features-tick-colour }}" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z" fill="currentColor"/>
+                    </svg>
+                    <span class="{{ highlighted-card.features-colour }}">
+                        {{ feature.feature }}
+                    </span>
+                    {% else %}
+                    <svg class="flex-shrink-0 h-5 w-5 {{ regular-card.features-tick-colour }}" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z" fill="currentColor"/>
+                    </svg>
+                    <span class="{{ regular-card.features-colour }}">
+                        {{ feature.feature }}
+                    </span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+        
+                </ul>
+        
+                <div class="h-full flex items-end">
+                    
+                    {% if include.pricing.option-one.highlight %}
+                    <a class="{{ button-font }} mt-5 inline-flex justify-center rounded-md border-2 font-semibold transition-all text-sm py-3 px-4 w-full 
+                    {{ highlight-button.text-colour }} {{ highlight-button.text-hover-colour }} {{ highlight-button.background-colour }} {{ highlight-button.background-hover-colour }} {{ highlight-button.border-colour }} {{ highlight-button.border-hover-colour }}
+                    " href="{{ include.pricing.option-one.button-link }}">
+                    {{ include.pricing.option-one.button-text }}
+                    </a>
+                    {% else %}
+                    <a class="{{ button-font }} mt-5 inline-flex justify-center rounded-md border-2 font-semibold transition-all text-sm py-3 px-4 w-full 
+                    {{ regular-button.text-colour }} {{ regular-button.text-hover-colour }} {{ regular-button.background-colour }} {{ regular-button.background-hover-colour }} {{ regular-button.border-colour }} {{ regular-button.border-hover-colour }}
+                    " href="{{ include.pricing.option-one.button-link }}">
+                    {{ include.pricing.option-one.button-text }}
+                    </a>
+                    {% endif %}
+                
+                </div>
+
+                {% endif %}
+            </div>
+        <!-- End Card One -->
+    
+
+
+        <!-- Card Two -->
+        {% if include.pricing.option-two.visible %}
+
+            {% if include.pricing.option-two.highlight %}
+            <div class="flex flex-col border-2 {{ highlighted-card.border-colour }} {{ highlighted-card.background-colour }} text-center rounded-xl p-8 h-full">
+            {% else %}
+            <div class="flex flex-col border {{ regular-card.border-colour }} {{ regular-card.background-colour }} text-center rounded-xl p-8 h-full">
+            {% endif %}
+                {% if include.pricing.option-two.highlight %}
+                <p class="mx-auto w-fit gap-1.5 py-1.5 px-3 rounded-md text-xs {{ subtitle-font }} uppercase font-semibold {{ highlighted-card.message.text-colour }} {{ highlighted-card.message.background-colour }}">{{ highlighted-card.message.text }}</p>
+                <h4 class="font-medium text-lg {{ title-font }} {{ highlighted-card.title-colour }}">{{ include.pricing.option-two.name }}</h4>
+                <span class="mt-7 font-bold text-5xl {{ subtitle-font }} {{ highlighted-card.price-colour }}">{{ include.pricing.option-two.price }}</span>
+                <p class="mt-2 text-sm {{ subtitle-font }} {{ highlighted-card.description-colour }}">{{ include.pricing.option-two.description }}</p>
+                {% else %}
+                <h4 class="font-medium text-lg {{ title-font }} {{ regular-card.title-colour }}">{{ include.pricing.option-two.name }}</h4>
+                <span class="mt-7 font-bold text-5xl {{ subtitle-font }} {{ regular-card.price-colour }}">{{ include.pricing.option-two.price }}</span>
+                <p class="mt-2 text-sm {{ subtitle-font }} {{ regular-card.description-colour }}">{{ include.pricing.option-two.description }}</p>
+                {% endif %}
+
+                <!-- cycling through features in current pricing option -->
+                <ul class="mt-7 space-y-2.5 text-sm {{ subtitle-font }}">
+                {% for feature in include.pricing.option-two.features %}
+                <li class="flex space-x-2">
+                    {% if include.pricing.option-two.highlight %}
+                    <svg class="flex-shrink-0 h-5 w-5 {{ highlighted-card.features-tick-colour }}" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z" fill="currentColor"/>
+                    </svg>
+                    <span class="{{ highlighted-card.features-colour }}">
+                        {{ feature.feature }}
+                    </span>
+                    {% else %}
+                    <svg class="flex-shrink-0 h-5 w-5 {{ regular-card.features-tick-colour }}" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z" fill="currentColor"/>
+                    </svg>
+                    <span class="{{ regular-card.features-colour }}">
+                        {{ feature.feature }}
+                    </span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+        
+                </ul>
+        
+                <div class="h-full flex items-end">
+
+                    {% if include.pricing.option-two.highlight %}
+                    <a class="{{ button-font }} mt-5 inline-flex justify-center rounded-md border-2 font-semibold transition-all text-sm py-3 px-4 w-full 
+                    {{ highlight-button.text-colour }} {{ highlight-button.text-hover-colour }} {{ highlight-button.background-colour }} {{ highlight-button.background-hover-colour }} {{ highlight-button.border-colour }} {{ highlight-button.border-hover-colour }}
+                    " href="{{ include.pricing.option-two.button-link }}">
+                    {{ include.pricing.option-two.button-text }}
+                    </a>
+                    {% else %}
+                    <a class="{{ button-font }} mt-5 inline-flex justify-center rounded-md border-2 font-semibold transition-all text-sm py-3 px-4 w-full 
+                    {{ regular-button.text-colour }} {{ regular-button.text-hover-colour }} {{ regular-button.background-colour }} {{ regular-button.background-hover-colour }} {{ regular-button.border-colour }} {{ regular-button.border-hover-colour }}
+                    " href="{{ include.pricing.option-two.button-link }}">
+                    {{ include.pricing.option-two.button-text }}
+                    </a>
+                    {% endif %}
+
+                    {% endif %}
+
+                </div>
+            </div>
+        <!-- End Card Two -->
+    
+
+
+
+        <!-- Card Three -->
+        {% if include.pricing.option-three.visible %}
+
+        {% if include.pricing.option-three.highlight %}
+        <div class="flex flex-col border-2 {{ highlighted-card.border-colour }} {{ highlighted-card.background-colour }} text-center rounded-xl p-8 h-full">
+        {% else %}
+        <div class="flex flex-col border {{ regular-card.border-colour }} {{ regular-card.background-colour }} text-center rounded-xl p-8 h-full">
+        {% endif %}
+            {% if include.pricing.option-three.highlight %}
+            <p class="mx-auto w-fit gap-1.5 py-1.5 px-3 rounded-md text-xs {{ subtitle-font }} uppercase font-semibold {{ highlighted-card.message.text-colour }} {{ highlighted-card.message.background-colour }}">{{ highlighted-card.message.text }}</p>
+            <h4 class="font-medium text-lg {{ title-font }} {{ highlighted-card.title-colour }}">{{ include.pricing.option-three.name }}</h4>
+            <span class="mt-7 font-bold text-5xl {{ subtitle-font }} {{ highlighted-card.price-colour }}">{{ include.pricing.option-three.price }}</span>
+            <p class="mt-2 text-sm {{ subtitle-font }} {{ highlighted-card.description-colour }}">{{ include.pricing.option-three.description }}</p>
+            {% else %}
+            <h4 class="font-medium text-lg {{ title-font }} {{ regular-card.title-colour }}">{{ include.pricing.option-three.name }}</h4>
+            <span class="mt-7 font-bold text-5xl {{ subtitle-font }} {{ regular-card.price-colour }}">{{ include.pricing.option-three.price }}</span>
+            <p class="mt-2 text-sm {{ subtitle-font }} {{ regular-card.description-colour }}">{{ include.pricing.option-three.description }}</p>
+            {% endif %}
+
+            <!-- cycling through features in current pricing option -->
+            <ul class="mt-7 space-y-2.5 text-sm {{ subtitle-font }}">
+            {% for feature in include.pricing.option-three.features %}
+            <li class="flex space-x-2">
+                {% if include.pricing.option-three.highlight %}
+                <svg class="flex-shrink-0 h-5 w-5 {{ highlighted-card.features-tick-colour }}" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z" fill="currentColor"/>
+                </svg>
+                <span class="{{ highlighted-card.features-colour }}">
+                    {{ feature.feature }}
+                </span>
+                {% else %}
+                <svg class="flex-shrink-0 h-5 w-5 {{ regular-card.features-tick-colour }}" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z" fill="currentColor"/>
+                </svg>
+                <span class="{{ regular-card.features-colour }}">
+                    {{ feature.feature }}
+                </span>
+                {% endif %}
+            </li>
+            {% endfor %}
+    
+            </ul>
+            
+            <div class="h-full flex items-end">
+
+                {% if include.pricing.option-three.highlight %}
+                <a class="{{ button-font }} mt-5 inline-flex justify-center rounded-md border-2 font-semibold transition-all text-sm py-3 px-4 w-full 
+                {{ highlight-button.text-colour }} {{ highlight-button.text-hover-colour }} {{ highlight-button.background-colour }} {{ highlight-button.background-hover-colour }} {{ highlight-button.border-colour }} {{ highlight-button.border-hover-colour }}
+                " href="{{ include.pricing.option-three.button-link }}">
+                {{ include.pricing.option-three.button-text }}
+                </a>
+                {% else %}
+                <a class="{{ button-font }} mt-5 inline-flex justify-center rounded-md border-2 font-semibold transition-all text-sm py-3 px-4 w-full 
+                {{ regular-button.text-colour }} {{ regular-button.text-hover-colour }} {{ regular-button.background-colour }} {{ regular-button.background-hover-colour }} {{ regular-button.border-colour }} {{ regular-button.border-hover-colour }}
+                " href="{{ include.pricing.option-three.button-link }}">
+                {{ include.pricing.option-three.button-text }}
+                </a>
+                {% endif %}
+
+                {% endif %}
+
+            </div>
+
+            </div>
+        <!-- End Card Three -->
+    
+        
+        
+        
+        <!-- Card Four -->
+        {% if include.pricing.option-four.visible %}
+
+            {% if include.pricing.option-four.highlight %}
+            <div class="flex flex-col border-2 {{ highlighted-card.border-colour }} {{ highlighted-card.background-colour }} text-center rounded-xl p-8 h-full">
+            {% else %}
+            <div class="flex flex-col border {{ regular-card.border-colour }} {{ regular-card.background-colour }} text-center rounded-xl p-8 h-full">
+            {% endif %}
+                {% if include.pricing.option-four.highlight %}
+                <p class="mx-auto w-fit gap-1.5 py-1.5 px-3 rounded-md text-xs {{ subtitle-font }} uppercase font-semibold {{ highlighted-card.message.text-colour }} {{ highlighted-card.message.background-colour }}">{{ highlighted-card.message.text }}</p>
+                <h4 class="font-medium text-lg {{ title-font }} {{ highlighted-card.title-colour }}">{{ include.pricing.option-four.name }}</h4>
+                <span class="mt-7 font-bold text-5xl {{ subtitle-font }} {{ highlighted-card.price-colour }}">{{ include.pricing.option-four.price }}</span>
+                <p class="mt-2 text-sm {{ subtitle-font }} {{ highlighted-card.description-colour }}">{{ include.pricing.option-four.description }}</p>
+                {% else %}
+                <h4 class="font-medium text-lg {{ title-font }} {{ regular-card.title-colour }}">{{ include.pricing.option-four.name }}</h4>
+                <span class="mt-7 font-bold text-5xl {{ subtitle-font }} {{ regular-card.price-colour }}">{{ include.pricing.option-four.price }}</span>
+                <p class="mt-2 text-sm {{ subtitle-font }} {{ regular-card.description-colour }}">{{ include.pricing.option-four.description }}</p>
+                {% endif %}
+
+                <!-- cycling through features in current pricing option -->
+                <ul class="mt-7 space-y-2.5 text-sm {{ subtitle-font }}">
+                {% for feature in include.pricing.option-four.features %}
+                <li class="flex space-x-2">
+                    {% if include.pricing.option-four.highlight %}
+                    <svg class="flex-shrink-0 h-5 w-5 {{ highlighted-card.features-tick-colour }}" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z" fill="currentColor"/>
+                    </svg>
+                    <span class="{{ highlighted-card.features-colour }}">
+                        {{ feature.feature }}
+                    </span>
+                    {% else %}
+                    <svg class="flex-shrink-0 h-5 w-5 {{ regular-card.features-tick-colour }}" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.5219 4.0949C11.7604 3.81436 12.181 3.78025 12.4617 4.01871C12.7422 4.25717 12.7763 4.6779 12.5378 4.95844L6.87116 11.6251C6.62896 11.91 6.1998 11.94 5.9203 11.6916L2.9203 9.02494C2.64511 8.78033 2.62032 8.35894 2.86493 8.08375C3.10955 7.80856 3.53092 7.78378 3.80611 8.02839L6.29667 10.2423L11.5219 4.0949Z" fill="currentColor"/>
+                    </svg>
+                    <span class="{{ regular-card.features-colour }}">
+                        {{ feature.feature }}
+                    </span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+        
+                </ul>
+        
+                <div class="h-full flex items-end">
+
+                    {% if include.pricing.option-four.highlight %}
+                    <a class="{{ button-font }} mt-5 inline-flex justify-center rounded-md border-2 font-semibold transition-all text-sm py-3 px-4 w-full 
+                    {{ highlight-button.text-colour }} {{ highlight-button.text-hover-colour }} {{ highlight-button.background-colour }} {{ highlight-button.background-hover-colour }} {{ highlight-button.border-colour }} {{ highlight-button.border-hover-colour }}
+                    " href="{{ include.pricing.option-four.button-link }}">
+                    {{ include.pricing.option-four.button-text }}
+                    </a>
+                    {% else %}
+                    <a class="{{ button-font }} mt-5 inline-flex justify-center rounded-md border-2 font-semibold transition-all text-sm py-3 px-4 w-full 
+                    {{ regular-button.text-colour }} {{ regular-button.text-hover-colour }} {{ regular-button.background-colour }} {{ regular-button.background-hover-colour }} {{ regular-button.border-colour }} {{ regular-button.border-hover-colour }}
+                    " href="{{ include.pricing.option-four.button-link }}">
+                    {{ include.pricing.option-four.button-text }}
+                    </a>
+                    {% endif %}
+
+                </div>
+
+                {% endif %}
+            </div>
+        <!-- End Card Four -->
+
+
+        </div>
+        <!-- End Grid -->
+    </div>
+
+
+
+    <!-- End Pricing -->
+</section>

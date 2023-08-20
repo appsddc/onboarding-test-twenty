@@ -1,0 +1,124 @@
+---
+---
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* colours for texts to be applied to child elements (for markdown) */
+
+/*Apply text-primary to all child tags of divs with text-primary */
+div.text-primary p,
+div.text-primary h1,
+div.text-primary h2,
+div.text-primary h3,
+div.text-primary h4,
+div.text-primary h5,
+div.text-primary h6,
+div.text-primary a,
+div.text-primary ul,
+div.text-primary ol {
+  color: theme('colors.primary');
+}
+
+/*Apply text-secondary to all child tags of divs with text-secondary */
+div.text-secondary p,
+div.text-secondary h1,
+div.text-secondary h2,
+div.text-secondary h3,
+div.text-secondary h4,
+div.text-secondary h5,
+div.text-secondary h6,
+div.text-secondary a,
+div.text-secondary ul,
+div.text-secondary ol {
+    color: theme('colors.secondary');
+}
+
+/* so on and so forth */
+
+/*Apply text-tertiary to all child tags of divs with text-tertiary */
+div.text-tertiary p,
+div.text-tertiary h1,
+div.text-tertiary h2,
+div.text-tertiary h3,
+div.text-tertiary h4,
+div.text-tertiary h5,
+div.text-tertiary h6,
+div.text-tertiary a,
+div.text-tertiary ul,
+div.text-tertiary ol {
+    color: theme('colors.tertiary');
+}
+
+/*Apply text-black to all child tags of divs with text-black */
+div.text-black p,
+div.text-black h1,
+div.text-black h2,
+div.text-black h3,
+div.text-black h4,
+div.text-black h5,
+div.text-black h6,
+div.text-black a,
+div.text-black ul,
+div.text-black ol {
+    color: theme('colors.black');
+}
+
+/*Apply text-white to all child tags of divs with text-white */
+div.text-white p,
+div.text-white h1,
+div.text-white h2,
+div.text-white h3,
+div.text-white h4,
+div.text-white h5,
+div.text-white h6,
+div.text-white a,
+div.text-white ul,
+div.text-white ol {
+    color: theme('colors.white');
+}
+
+/*Apply text-gray-500 to all child tags of divs with text-gray-500 */
+div.text-gray-500 p,
+div.text-gray-500 h1,
+div.text-gray-500 h2,
+div.text-gray-500 h3,
+div.text-gray-500 h4,
+div.text-gray-500 h5,
+div.text-gray-500 h6,
+div.text-gray-500 a,
+div.text-gray-500 ul,
+div.text-gray-500 ol {
+    color: theme('colors.gray-500');
+}
+
+/*Apply text-gray-100 to all child tags of divs with text-gray-100 */
+div.text-gray-100 p,
+div.text-gray-100 h1,
+div.text-gray-100 h2,
+div.text-gray-100 h3,
+div.text-gray-100 h4,
+div.text-gray-100 h5,
+div.text-gray-100 h6,
+div.text-gray-100 a,
+div.text-gray-100 ul,
+div.text-gray-100 ol {
+    color: theme('colors.gray-100');
+}
+
+/*Apply text-transparent to all child tags of divs with text-transparent */
+div.text-transparent p,
+div.text-transparent h1,
+div.text-transparent h2,
+div.text-transparent h3,
+div.text-transparent h4,
+div.text-transparent h5,
+div.text-transparent h6,
+div.text-transparent a,
+div.text-transparent ul,
+div.text-transparent ol {
+    color: theme('colors.transparent');
+}

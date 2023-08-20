@@ -1,0 +1,449 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Kleaver CMS</title>
+  <!-- favicon -->
+  <link rel="shortcut icon" type="image/svg" href="/assets/site/logo.svg">
+  <!-- preline js -->
+  <script src="https://cdn.jsdelivr.net/npm/preline@1.7.0/dist/preline.js"></script>
+
+</head>
+<body>
+  <!-- flowbite js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+  <!-- Include the script that builds the page and powers Kleaver CMS -->
+  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+  <script>
+    CMS.registerPreviewStyle("/assets/css/main.css");
+    CMS.registerPreviewStyle("/assets/css/font.css");
+  </script>
+
+  <!-- script for text to markdown -->
+  <script src="https://unpkg.com/react-markdown@5.0.3/react-markdown.min.js"></script>
+
+  <!-- main script for custom previews -->
+  <script type="module">
+    // for advanced pages
+    import { JumbotronComponent } from './preview-templates/JumbotronComponent.js';
+    import { HeroComponent } from './preview-templates/HeroComponent.js';
+    import { GalleryComponent } from './preview-templates/GalleryComponent.js';
+    import { OpeningHoursComponent } from './preview-templates/OpeningHoursComponent.js';
+    import { CustomerLogosComponent } from './preview-templates/CustomerLogosComponent.js';
+    import { ContactFormComponent } from './preview-templates/ContactFormComponent.js';
+
+    import { AdvancedCarousel } from './preview-templates/AdvancedCarousel.js';
+    import { TextContentComponent } from './preview-templates/TextContentComponent.js';
+    import { CalloutComponent } from './preview-templates/CalloutComponent.js';
+    import { PricingComponent } from './preview-templates/PricingComponent.js';
+    import { AccordionComponent } from './preview-templates/AccordionComponent.js';
+    import { IframeComponent } from './preview-templates/IframeComponent.js';
+
+
+    // for portfolio page
+    import { PortfolioPreview } from './preview-templates/PortfolioPreview.js';
+
+    // for font preview
+    import { FontPreview } from './preview-templates/FontPreview.js';
+
+    // for navbar preview
+    import { NavbarPreview } from './preview-templates/NavbarPreview.js';
+
+    // for footer preview
+    import { FooterPreview } from './preview-templates/FooterPreview.js';
+
+
+
+    // setting our database of colours
+    const colours = {
+      background: {
+        primary: 'bg-primary',
+        secondary: 'bg-secondary',
+        tertiary: 'bg-tertiary',
+        white: 'bg-white',
+        black: 'bg-black',
+        grey: 'bg-gray-500',
+        'light-grey': 'bg-gray-100',
+        transparent: 'bg-transparent'
+      },
+      text: {
+        primary: 'text-primary',
+        secondary: 'text-secondary',
+        tertiary: 'text-tertiary',
+        white: 'text-white',
+        black: 'text-black',
+        grey: 'text-gray-500',
+        'light-grey': 'text-gray-100',
+        transparent: 'text-transparent'
+      },
+      border: {
+        primary: 'border-primary',
+        secondary: 'border-secondary',
+        tertiary: 'border-tertiary',
+        white: 'border-white',
+        black: 'border-black',
+        grey: 'border-gray',
+        'light-grey': 'border-gray-100',
+        transparent: 'border-transparent'
+      },
+      backgroundHover: {
+        primary: 'hover:bg-primary',
+        secondary: 'hover:bg-secondary',
+        tertiary: 'hover:bg-tertiary',
+        white: 'hover:bg-white',
+        black: 'hover:bg-black',
+        grey: 'hover:bg-gray-500',
+        'light-grey': 'hover:bg-gray-100',
+        transparent: 'hover:bg-transparent'
+      },
+      textHover: {
+        primary: 'hover:text-primary',
+        secondary: 'hover:text-secondary',
+        tertiary: 'hover:text-tertiary',
+        white: 'hover:text-white',
+        black: 'hover:text-black',
+        grey: 'hover:text-gray-500',
+        'light-grey': 'hover:text-gray-100',
+        transparent: 'hover:text-transparent'
+      },
+      borderHover: {
+        primary: 'hover:border-primary',
+        secondary: 'hover:border-secondary',
+        tertiary: 'hover:border-tertiary',
+        white: 'hover:border-white',
+        black: 'hover:border-black',
+        grey: 'hover:border-gray-500',
+        'light-grey': 'hover:border-gray-100',
+        transparent: 'hover:border-transparent'
+      },
+      placeholder: {
+        primary: 'placeholder:text-primary',
+        secondary: 'placeholder:text-secondary',
+        tertiary: 'placeholder:text-tertiary',
+        white: 'placeholder:text-white',
+        black: 'placeholder:text-black',
+        grey: 'placeholder:text-gray-500',
+        'light-grey': 'placeholder:text-gray-100',
+        transparent: 'placeholder:text-transparent'
+      }
+    }
+
+
+
+
+
+
+
+    // advanced preview (requires an if statement for future implementation)
+    const Advanced = createClass({
+      getInitialState: function() {
+        return {
+          isLoading: true,
+          apiData: null
+        };
+      },
+      componentDidMount: function() {
+        this.getApiData();
+      },
+      getApiData: async function() {
+        const response = await fetch('/api/v1/data');
+        const data = await response.text();
+        const strippedData = data.replace(/(<([^>]+)>)/ig, '');
+        const jsonData = JSON.parse(strippedData);
+        this.setState({
+          apiData: jsonData,
+          isLoading: false
+        });
+      },
+        render: function() {
+          if (this.state.isLoading) {
+            return 'Loading...'; // or return a loading spinner
+          }
+          // loading all entries for advanced data 
+          let entry = this.props.entry
+          // setting data for jumbotron preview
+          let jumbotronData = null;
+          let sectionsData = null;
+          
+          try {
+            // Convert to JavaScript objects only if the data exists
+            const jumbotronEntry = this.props.entry.getIn(['data', 'jumbotron']);
+            const sectionsEntry = this.props.entry.getIn(['data', 'sections']);
+
+            jumbotronData = jumbotronEntry ? jumbotronEntry.toJS() : null;
+            sectionsData = sectionsEntry ? sectionsEntry.toJS() : null;
+          } catch (error) {
+            console.error('Error when accessing data fields: ', error);
+          }
+
+          // Access apiData from the state
+          let apiData = this.state.apiData;
+
+          // return for the advanced pages previews
+          return (
+            h('section', {className: 'bg-white'},
+
+              jumbotronData && jumbotronData.visible ? JumbotronComponent(jumbotronData, colours, apiData) : null,
+              sectionsData ? sectionsData.map((section) => {
+                if (section.type === 'hero') {
+
+                  return HeroComponent(section, apiData);
+                } else if (section.type === 'opening-hours') {
+
+                  return OpeningHoursComponent(section, apiData);
+                } else if (section.type === "customer-logos") {
+
+                  return CustomerLogosComponent(section, apiData)
+                } else if (section.type === "contact-form") {
+
+                  return ContactFormComponent(section, colours, apiData)
+                } else if (section.type === "basic-map") {
+
+                  return IframeComponent(section, apiData)
+                } else if (section.type === "iframe") {
+
+                  return IframeComponent(section, apiData)
+                } else if (section.type === "callout") {
+
+                  return CalloutComponent(section, colours, apiData)
+                } else if (section.type === "pricing") {
+
+                  return PricingComponent(section, colours, apiData)
+                } else if (section.type === "text-content") {
+
+                  return TextContentComponent(section, h(window.ReactMarkdown, { }, section.Markdown), apiData)
+                } else if (section.type === "accordion") {
+
+                  return AccordionComponent(section, colours, apiData)
+                } else if (section.type === "carousel") {
+
+                  console.log(`Carousel Section: ${JSON.stringify(section)}`);
+                  return AdvancedCarousel(section, apiData)
+                } else if (section.type === 'gallery') {
+
+                  return GalleryComponent(section, apiData);
+                } else {
+                  return h('div', {className: 'text-center'}, 
+                    h('h1', {}, 'Add components via the Sections widget.')
+                  );
+                }
+              }) : null
+
+            )
+          );
+            
+            
+      }
+});
+
+
+      // portfolio preview
+      const Portfolio = createClass({
+        getInitialState: function() {
+          return {
+            isLoading: true,
+            apiData: null
+          };
+        },
+        componentDidMount: function() {
+          this.getApiData();
+        },
+        getApiData: async function() {
+          const response = await fetch('/api/v1/data');
+          const data = await response.text();
+          const strippedData = data.replace(/(<([^>]+)>)/ig, '');
+          const jsonData = JSON.parse(strippedData);
+          this.setState({
+            apiData: jsonData,
+            isLoading: false
+          });
+        },
+        render: function() {
+          if (this.state.isLoading) {
+            return 'Loading...'; // or return a loading spinner
+          }
+
+          // Access apiData from the state
+          let apiData = this.state.apiData;
+
+          // loading all entries for portfolio data 
+          let entry = this.props.entry
+            // setting data for portfolio preview
+          const portfolioData = this.props.entry.getIn(['data']).toJS();
+          // console.log(JSON.stringify(entry));
+
+          return (
+            PortfolioPreview(portfolioData, h(window.ReactMarkdown, { }, portfolioData.body), colours, apiData)
+          )
+        }
+      })
+
+      // fonts preview
+      const Font = createClass({
+        render: function() {
+
+          // loading all entries for fonts data
+          let entry = this.props.entry
+          // setting data for fonts preview
+          const fontsData = this.props.entry.getIn(['data']).toJS();
+          console.log(JSON.stringify(entry));
+
+          return (
+            FontPreview(fontsData)
+          )
+        }
+      })
+
+
+      const Navbar = createClass({
+        getInitialState: function() {
+          return {
+            isLoading: true,
+            apiData: null,
+            configData: null
+          };
+        },
+        componentDidMount: function() {
+          this.getApiData();
+          this.getConfigData();
+        },
+        getApiData: async function() {
+          const response = await fetch('/api/v1/data');
+          const data = await response.text();
+          const strippedData = data.replace(/(<([^>]+)>)/ig, '');
+          const jsonData = JSON.parse(strippedData);
+          this.setState({
+            apiData: jsonData,
+            isLoading: false
+          });
+        },
+        getConfigData: async function() {
+          const response = await fetch('/api/v1/config');
+          const data = await response.text();
+          const strippedData = data.replace(/(<([^>]+)>)/ig, '');
+          const jsonData = JSON.parse(strippedData);
+          this.setState({
+            configData: jsonData,
+            isLoading: false
+          });
+        },
+        render: function() {
+          if (this.state.isLoading) {
+            return 'Loading...'; // or return a loading spinner
+          }
+
+          // Access apiData and configData from the state
+          let apiData = this.state.apiData;
+          let configData = this.state.configData;
+
+          if (!apiData || !configData) {
+            return 'Loading...'; // or return a loading spinner
+          }
+
+          // loading all entries for portfolio data 
+          let entry = this.props.entry
+
+          // console logging for debugging data
+          // console.log(`apiData: ${JSON.stringify(apiData)}`);
+          // console.log(`configData: ${JSON.stringify(configData)}`);
+          
+          // retrieving the navbar data
+          const navbarData = this.props.entry.getIn(['data']).toJS();
+
+
+          // main preview code goes here
+          console.log(`API DATA: ${JSON.stringify(apiData)}`);
+          
+          return h('div', { class: `pt-64` },
+            h('br'),
+            h('br'),
+            h('br'),
+            h('br'),
+            h('br'),
+            NavbarPreview(navbarData, apiData, configData)
+          )
+
+        }
+      })
+
+
+
+
+      const Footer = createClass({
+        getInitialState: function() {
+          return {
+            isLoading: true,
+            apiData: null,
+            configData: null
+          };
+        },
+        componentDidMount: function() {
+          this.getApiData();
+          this.getConfigData();
+        },
+        getApiData: async function() {
+          const response = await fetch('/api/v1/data');
+          const data = await response.text();
+          const strippedData = data.replace(/(<([^>]+)>)/ig, '');
+          const jsonData = JSON.parse(strippedData);
+          this.setState({
+            apiData: jsonData,
+            isLoading: false
+          });
+        },
+        getConfigData: async function() {
+          const response = await fetch('/api/v1/config');
+          const data = await response.text();
+          const strippedData = data.replace(/(<([^>]+)>)/ig, '');
+          const jsonData = JSON.parse(strippedData);
+          this.setState({
+            configData: jsonData,
+            isLoading: false
+          });
+        },
+        render: function() {
+          if (this.state.isLoading) {
+            return 'Loading...'; // or return a loading spinner
+          }
+
+          // Access apiData and configData from the state
+          let apiData = this.state.apiData;
+          let configData = this.state.configData;
+
+          if (!apiData || !configData) {
+            return 'Loading...'; // or return a loading spinner
+          }
+
+          // loading all entries for portfolio data 
+          let entry = this.props.entry
+
+          // console logging for debugging data
+          // console.log(`apiData: ${JSON.stringify(apiData)}`);
+          // console.log(`configData: ${JSON.stringify(configData)}`);
+          
+          // retrieving the navbar data
+          const footerData = this.props.entry.getIn(['data']).toJS();
+
+
+          // main preview code goes here
+          console.log(`API DATA: ${JSON.stringify(apiData)}`);
+          
+          return FooterPreview(footerData, apiData, configData)
+
+        }
+      })
+
+
+      CMS.registerPreviewTemplate("advanced", Advanced);
+      CMS.registerPreviewTemplate("portfolio", Portfolio);
+      CMS.registerPreviewTemplate("font", Font);
+      CMS.registerPreviewTemplate("navigation", Navbar);
+      CMS.registerPreviewTemplate("footer", Footer);
+      // CMS.registerPreviewTemplate("hero", Hero)
+      // this might need changed to be just jumbotron?
+  </script>
+</body>
+</html>

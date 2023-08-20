@@ -1,0 +1,34 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+
+{% case include.background-colour %}
+{% when 'primary' %}
+<section class="w-full bg-bgPrimary">
+{% when 'secondary' %}
+<section class="w-full bg-bgSecondary">
+{% when 'tertiary' %}
+<section class="w-full bg-bgTertiary">
+{% else %}
+<section class="w-full bg-bgDefault">
+{% endcase %}
+    <div id="{{ include.anchor }}" class="text-center prose lg:prose-xl mx-auto p-4">
+        <h1 class="{{ title-font }}">{{ include.title }}</h1>
+        <p class="{{ subtitle-font }}">{{ include.address }}</p>
+    </div>
+    <div class="relative w-full prose lg:prose-xl mx-auto pb-8 p-4">
+        <div class="">
+            <div class="h-96 w-full">
+                {{ include.iframe }}
+            </div>
+        </div>                
+    </div>
+    <script>
+        // init variable for iframe
+        const iframe = document.querySelector('iframe');
+        // removing width and height attributes
+        iframe.removeAttribute('width');
+        iframe.removeAttribute('height');
+        // Adding our new classes
+        iframe.classList.add('w-full', 'h-full', 'rounded-lg');
+    </script>
+</section>

@@ -1,0 +1,177 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+{% assign text-font = site.data.font.font.text %}
+
+<!-- background colour -->
+{% case site.data.portfolio-config.colour-config.background-colour %}
+
+{% when 'primary' %}
+{% assign post-background-colour = 'bg-primary' %}
+{% when 'secondary' %}
+{% assign post-background-colour = 'bg-secondary' %}
+{% when 'tertiary' %}
+{% assign post-background-colour = 'bg-tertiary' %}
+{% when 'black' %}
+{% assign post-background-colour = 'bg-black' %}
+{% when 'grey' %}
+{% assign post-background-colour = 'bg-gray-500' %}
+{% when 'light-grey' %}
+{% assign post-background-colour = 'bg-gray-100' %}
+{% when 'transparent' %}
+{% assign post-background-colour = 'bg-transparent' %}
+{% else %}
+{% assign post-background-colour = 'bg-white' %}
+
+{% endcase %}
+
+
+<!-- site.title text colour -->
+{% case data.portfolio-config.colour-config.title-colour %}
+
+{% when 'primary' %}
+{% assign title-text-colour = 'text-primary' %}
+{% when 'secondary' %}
+{% assign title-text-colour = 'text-secondary' %}
+{% when 'tertiary' %}
+{% assign title-text-colour = 'text-tertiary' %}
+{% when 'grey' %}
+{% assign title-text-colour = 'text-gray-500' %}
+{% when 'white' %}
+{% assign title-text-colour = 'text-white' %}
+{% when 'light-grey' %}
+{% assign title-text-colour = 'text-gray-100' %}
+{% when 'transparent' %}
+{% assign title-text-colour = 'text-transparent' %}
+{% else %}
+{% assign title-text-colour = 'black' %}
+
+{% endcase %}
+
+
+<!-- description text colour -->
+{% case site.data.portfolio-config.colour-config.description-colour %}
+
+{% when 'primary' %}
+{% assign description-text-colour = 'text-primary' %}
+{% when 'secondary' %}
+{% assign description-text-colour = 'text-secondary' %}
+{% when 'tertiary' %}
+{% assign description-text-colour = 'text-tertiary' %}
+{% when 'light-grey' %}
+{% assign description-text-colour = 'text-gray-100' %}
+{% when 'white' %}
+{% assign description-text-colour = 'text-white' %}
+{% when 'black' %}
+{% assign description-text-colour = 'text-black' %}
+{% when 'transparent' %}
+{% assign description-text-colour = 'text-transparent' %}
+{% else %}
+{% assign description-text-colour = 'text-gray-500' %}
+
+{% endcase %}
+
+
+<!-- date text colour -->
+{% case site.data.portfolio-config.colour-config.date-colour %}
+
+{% when 'primary' %}
+{% assign date-text-colour = 'text-primary' %}
+{% when 'secondary' %}
+{% assign date-text-colour = 'text-secondary' %}
+{% when 'tertiary' %}
+{% assign date-text-colour = 'text-tertiary' %}
+{% when 'black' %}
+{% assign date-text-colour = 'text-black' %}
+{% when 'white' %}
+{% assign date-text-colour = 'text-white' %}
+{% when 'light-grey' %}
+{% assign date-text-colour = 'text-gray-100' %}
+{% when 'transparent' %}
+{% assign date-text-colour = 'text-transparent' %}
+{% else %}
+{% assign date-text-colour = 'text-gray-500' %}
+
+{% endcase %}
+
+
+<!-- category background colour -->
+{% case site.data.portfolio-config.category-config.background-colour %}
+
+{% when 'white' %}
+{% assign category-background-colour = 'bg-white' %}
+{% when 'secondary' %}
+{% assign category-background-colour = 'bg-secondary' %}
+{% when 'tertiary' %}
+{% assign category-background-colour = 'bg-tertiary' %}
+{% when 'black' %}
+{% assign category-background-colour = 'bg-black' %}
+{% when 'grey' %}
+{% assign category-background-colour = 'bg-gray-500' %}
+{% when 'light-grey' %}
+{% assign category-background-colour = 'bg-gray-100' %}
+{% when 'transparent' %}
+{% assign category-background-colour = 'bg-transparent' %}
+{% else %}
+{% assign category-background-colour = 'bg-primary' %}
+
+{% endcase %}
+
+
+<!-- category text colour -->
+{% case site.data.portfolio-config.category-config.text-colour %}
+
+{% when 'primary' %}
+{% assign category-text-colour = 'text-primary' %}
+{% when 'secondary' %}
+{% assign category-text-colour = 'text-secondary' %}
+{% when 'tertiary' %}
+{% assign category-text-colour = 'text-tertiary' %}
+{% when 'black' %}
+{% assign category-text-colour = 'text-black' %}
+{% when 'grey' %}
+{% assign category-text-colour = 'text-gray-500' %}
+{% when 'light-grey' %}
+{% assign category-text-colour = 'text-gray-100' %}
+{% when 'transparent' %}
+{% assign category-text-colour = 'text-transparent' %}
+{% else %}
+{% assign category-text-colour = 'text-white' %}
+
+{% endcase %}
+
+<section class="bg-gray-100 py-8">
+    <div class="prose xl:prose-xl mx-auto">
+        <h1 class="text-center">{{ include.title }}</h1>
+    </div>
+    <div class="flex items-center h-fit">
+        <div class="p-4 mx-auto max-w-7xl">
+            <div class="grid grid-cols-1 gap-4 lg:gap-8 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {% for post in include.posts %}
+
+                    <a class="mb-0 overflow-hidden {{ post-background-colour }} rounded shadow" href="{{ post.url }}">
+                        <div class="relative overflow-hidden h-72">
+                            <img class="object-cover w-full h-full transition-all hover:scale-110"
+                                src="{{ post.image }}" alt="">
+                        </div>
+                        <div class="relative z-20 p-8 -mt-12 ">
+                            <span class="inline-block px-4 py-2 mb-5 text-xs rounded {{ subtitle-font }} {{ category-text-colour }} {{ category-background-colour }}">
+                                {{ post.category }}
+                            </span>
+                            <span class="block mb-2 text-xs font-semibold {{ subtitle-font }} {{ date-text-colour }} uppercase">
+                                {{ post.author }} {{ post.date | date: "%A, %B %d, %Y" }}
+                            </span>
+                            <h2 class="mb-3 text-2xl font-bold leading-9 {{ title-font }} {{ title-text-colour }}">
+                                {{ post.title }}
+                            </h2>
+                            <p class="text-base leading-7 {{ text-font }} {{ description-text-colour }}">
+                                {{ post.description }}
+                            </p>
+                        </div>
+                    </a>
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</section>

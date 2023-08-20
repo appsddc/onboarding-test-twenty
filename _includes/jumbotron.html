@@ -1,0 +1,82 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+{% assign form-font = site.data.font.font.form %}
+{% assign button-font = site.data.font.font.button %}
+
+{% assign button-one = include.button-one %}
+{% assign button-two = include.button-two %}
+
+
+
+{% assign bg-gradient = '#374151' %}       <!-- backgroundColour -->
+{% assign bg-blend = 'multiply' %}          <!-- backgroundBlendMode -->
+{% assign bg-repeat = '' %}                 <!-- backgroundRepeat -->
+{% assign bg-size = '' %}           <!-- backgroundSize -->
+{% assign bg-position = 'center' %}       <!-- backgroundPosition -->
+
+
+<!-- case statenet to apply the correct css attribute values for the image overlay -->
+{% case include.overlay.size %}
+{% when 'contain' %}
+    {% assign bg-size = 'contain' %}
+    {% assign bg-repeat = 'no-repeat' %}
+    {% assign bg-position = '' %}
+{% when 'cover' %}
+    {% assign bg-size = 'cover' %}
+    {% assign bg-repeat = 'no-repeat' %}
+    {% assign bg-position = '' %}
+{% when 'auto' %}
+    {% assign bg-size = 'auto' %}
+    {% assign bg-repeat = 'no-repeat' %}
+    {% assign bg-position = '' %}
+{% when 'repeat' %}
+    {% assign bg-size = 'contain' %}
+    {% assign bg-repeat = '' %}
+    {% assign bg-position = '' %}
+{% else %}
+    {% assign bg-position = 'center' %}
+    {% assign bg-repeat = 'no-repeat' %}
+    {% assign bg-size = '' %}
+{% endcase %}
+
+
+<section class="bg-center bg-no-repeat h-screen {{ include.height }} flex items-center"
+    style="
+        background-image: url('{{ include.background-image }}'); 
+        background-color: '{{ include.overlay.colour }}'; 
+        background-blend-mode: '{{ include.overlay.blend }}';
+        /* w-full css */
+        background-repeat: '{{ bg-repeat }}';
+        background-size: '{{ bg-size }}';
+        background-position: '{{ bg-position }}';
+    "
+>
+
+    
+    <div class="px-4 w-full py-24 lg:py-56 {{ include.text-alignment }}">
+        <h1 class="{{ title-font }} mb-4 text-4xl font-extrabold tracking-tight leading-none {{ include.title-colour }} md:text-5xl lg:text-6xl">{{ include.title }}</h1>
+        <p class="{{ subtitle-font }} mb-8 text-lg font-normal {{ include.subtitle-colour }} lg:text-xl">{{ include.subtitle }}</p>
+
+        {% case include.text-alignment %}
+        {% when 'text-left' %}
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0 sm:space-x-4 {{ form-font }}">
+        {% when 'text-right' %}
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-end sm:space-y-0 sm:space-x-4 {{ form-font }}">
+        {% else %}
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 {{ form-font }}">
+        {% endcase %}
+        
+            {% if button-one.visible %}
+            <a href="{{ button-one.href }}" class="{{ button-font }} inline-flex justify-center transition items-center py-3 px-5 text-base font-medium text-center {{ button-one.colour.text-colour }} {{ button-one.colour.text-hover-colour }} rounded-lg border {{ button-one.colour.background-colour }} {{ button-one.colour.background-hover-colour }} {{ button-one.colour.border-colour }} {{ button-one.colour.border-hover-colour }}">
+                {{ button-one.text }}
+                <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </a>
+            {% endif %}
+            {% if button-two.visible %}
+            <a href="{{ button-two.href }}" class="{{ button-font }} inline-flex justify-center transition items-center py-3 px-5 text-base font-medium text-center {{ button-two.colour.text-colour }} {{ button-two.colour.text-hover-colour }} rounded-lg border {{ button-two.colour.background-colour }} {{ button-two.colour.background-hover-colour }} {{ button-two.colour.border-colour }} {{ button-two.colour.border-hover-colour }}">
+                {{ button-two.text }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>

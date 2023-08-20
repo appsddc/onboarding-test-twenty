@@ -1,0 +1,126 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+{% assign form-font = site.data.font.font.form %}
+{% assign button-font = site.data.font.font.button %}
+
+
+{% assign form-colour = include.colours %}
+{% assign button-colour = include.submit-button.colour %}
+
+<section class="w-full {{ include.background-colour }}">
+
+{% case include.design %}
+{% when 'Line' %}
+
+    <form name="contact" netlify action="/form-submitted">
+        <div id="{{ include.anchor }}" class="prose lg:prose-xl mx-auto p-4 py-8">
+            <div class="py-8 lg:py-16 mx-auto max-w-screen-md">
+                <h1 class="mb-4 tracking-tight font-extrabold text-center {{ include.title-colour }} {{ title-font }}">{{ include.title }}</h1>
+                <p class="mb-8 lg:mb-16 font-light text-center {{ include.subtitle-colour }} {{ subtitle-font }} sm:text-xl">{{ include.subtitle }}</p>
+
+                <div class="py-8 lg:py-16 mx-auto max-w-screen-md {{ form-font }}">
+                    <div class="grid md:grid-cols-2 md:gap-6">
+                        {% if include.name %}
+                        <div class="relative z-0 w-full mb-6 group">
+                            <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-2 w-full text-sm {{ form-colour.input-text-box-colour }} {{ form-colour.input-background-colour }} border-0 border-b-2 {{ form-colour.input-border-colour }} appearance-none focus:outline-none focus:ring-0 peer" placeholder=" " required />
+                            <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm px-2 {{ form-colour.label-text-colour }} duration-300 transform -translate-y-6 scale-75 top-3 z-20 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
+                        </div>
+                        <div class="relative z-0 w-full mb-6 group">
+                            <input type="text" name="floating_last_name" id="floating_last_name" class="block py-2.5 px-2 w-full text-sm {{ form-colour.input-text-box-colour }} {{ form-colour.input-background-colour }} border-0 border-b-2 {{ form-colour.input-border-colour }} appearance-none focus:outline-none focus:ring-0 peer" placeholder=" " required />
+                            <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm px-2 {{ form-colour.label-text-colour }} duration-300 transform -translate-y-6 scale-75 top-3 z-20 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 md:gap-6">
+                        {% if include.email %}
+                        <div class="relative z-0 w-full mb-6 group">
+                            <input type="email" name="floating_email" id="floating_email" class="block py-2.5 px-2 w-full text-sm {{ form-colour.input-text-box-colour }} {{ form-colour.input-background-colour }} border-0 border-b-2 {{ form-colour.input-border-colour }} appearance-none focus:outline-none focus:ring-0 peer" placeholder=" " required />
+                            <label for="floating_email" class="peer-focus:font-medium absolute text-sm px-2 {{ form-colour.label-text-colour }} duration-300 transform -translate-y-6 scale-75 top-3 z-20 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
+                        </div>
+                        {% endif %}
+                        {% if include.phone %}
+                        <div class="relative z-0 w-full mb-6 group">
+                            <input type="tel" pattern="[0-9]{10}" name="floating_phone" id="floating_phone" class="block py-2.5 px-2 w-full text-sm {{ form-colour.input-text-box-colour }} {{ form-colour.input-background-colour }} border-0 border-b-2 {{ form-colour.input-border-colour }} appearance-none focus:outline-none focus:ring-0 peer" placeholder=" " required />
+                            <label for="floating_phone" class="peer-focus:font-medium absolute text-sm px-2 {{ form-colour.label-text-colour }} duration-300 transform -translate-y-6 scale-75 top-3 z-20 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number</label>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% if include.query.visible %}
+                    <div class="relative z-0 w-full mb-6 group">
+
+                        <label for="countries" class="block mb-2 text-sm {{ form-colour.label-text-colour }}">{% if include.query.text %}{{ include.query.text }}{% else %}Select Contact Reason{% endif %}</label>
+                        <select name="query-type" class="block py-2.5 px-2 w-full text-sm px-2 {{ form-colour.input-text-box-colour }} {{ form-colour.input-background-colour }} border-0 border-b-2 {{ form-colour.input-border-colour }} appearance-none focus:outline-none focus:ring-0 peer">
+
+                            {% for query in include.query.options %}
+                            <option value="{{ query.option }}">{{ query.option }}</option>
+                            {% endfor %}
+                        
+                        </select>
+                    </div>
+                    {% endif %}
+
+                    <div class="relative z-0 w-full mb-6 group">
+                        <textArea type="text" name="floating_company" id="floating_company" class="block py-2.5 px-2 w-full text-sm {{ form-colour.input-text-box-colour }} {{ form-colour.input-background-colour }} border-0 border-b-2 {{ form-colour.input-border-colour }} appearance-none focus:outline-none focus:ring-0 peer" placeholder=" " required ></textArea>
+                        <label for="floating_company" class="peer-focus:font-medium absolute text-sm px-2 {{ form-colour.label-text-colour }} duration-300 transform -translate-y-6 scale-75 top-3 z-20 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Message</label>
+                    </div>
+                    <button type="submit" class="py-3 px-5 text-sm font-medium text-center rounded-lg w-full border {{ button-colour.text-colour }} {{ button-colour.text-hover-colour }} {{ button-colour.background-colour }} {{ button-colour.background-hover-colour }} {{ button-colour.border-colour }} {{ button-colour.border-hover-colour }}">{{ include.submit-button.text }}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+{% else %}
+
+<div class="prose lg:prose-xl mx-auto p-4 py-8">
+    <div class="py-8 lg:py-16 mx-auto max-w-screen-md">
+        <h1 class="mb-4 tracking-tight font-extrabold text-center {{ title-font }} {{ include.title-colour }}">{{ include.title }}</h1>
+        <p class="mb-8 lg:mb-16 font-light text-center {{ subtitle-font }} {{ include.subtitle-colour }} sm:text-xl">{{ include.subtitle }}</p>
+        <form name="contact" action="" class="space-y-8 {{ form-font }}">
+            {% if include.name %}
+            <div>
+                <label for="name" class="block mb-2 text-sm font-medium {{ form-colour.label-text-colour }}">Your full name</label>
+                <input type="text" name="name" class="shadow-sm {{ form-colour.input-background-colour }} border {{ form-colour.input-border-colour }} {{ form-colour.input-text-box-colour }} {{ form-colour.input-placeholder-colour }} text-sm rounded-lg block w-full p-2.5" placeholder="Full Name" required>
+            </div>
+            {% endif %}
+            {% if include.email %}
+            <div>
+                <label for="email" class="block mb-2 text-sm font-medium {{ form-colour.label-text-colour }}">Your email</label>
+                <input type="email" name="email" class="shadow-sm {{ form-colour.input-background-colour }} border {{ form-colour.input-border-colour }} {{ form-colour.input-text-box-colour }} {{ form-colour.input-placeholder-colour }} text-sm rounded-lg block w-full p-2.5" placeholder="Email" required>
+            </div>
+            {% endif %}
+            {% if include.phone %}
+            <div>
+                <label for="phone" class="block mb-2 text-sm font-medium {{ form-colour.label-text-colour }}">Your phone number</label>
+                <input type="tel" name="phone" class="shadow-sm {{ form-colour.input-background-colour }} border {{ form-colour.input-border-colour }} {{ form-colour.input-text-box-colour }} {{ form-colour.input-placeholder-colour }} text-sm rounded-lg block w-full p-2.5" placeholder="Phone" required>
+            </div>
+            {% endif %}
+            
+            {% if include.query.visible %}
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="countries" class="block mb-2 text-sm font-medium {{ form-colour.label-text-colour }}">{% if include.query.text %}{{ include.query.text }}{% else %}Select Contact Reason{% endif %}</label>
+                <select name="query-type" class="{{ form-colour.input-background-colour }} border {{ form-colour.input-border-colour }} {{ form-colour.input-text-box-colour }} text-sm rounded-lg block w-full p-2.5">
+                    
+                    {% for query in include.query.options %}
+                    <option value="{{ query.option }}">{{ query.option }}</option>
+                    {% endfor %}
+                    
+                </select>
+            </div>
+            {% endif %}
+
+            {% if include.message %}
+            <div class="sm:col-span-2">
+                <label for="message" class="block mb-2 text-sm font-medium {{ form-colour.label-text-colour }}">Your message</label>
+                <textarea name="message" rows="6" class="block p-2.5 w-full text-sm {{ form-colour.input-text-box-colour }} {{ form-colour.input-background-colour }} rounded-lg shadow-sm border {{ form-colour.input-border-colour }} {{ form-colour.input-placeholder-colour }}" placeholder="Leave a comment..."></textarea>
+            </div>
+            {% endif %}
+            <button class="{{ button-font }} py-3 px-5 text-sm font-medium text-center rounded-lg w-full border {{ button-colour.text-colour }} {{ button-colour.text-hover-colour }} {{ button-colour.background-colour }} {{ button-colour.background-hover-colour }} {{ button-colour.border-colour }} {{ button-colour.border-hover-colour }}">{{ include.submit-button.text }}</button>
+        </form>
+    </div>
+</div>
+</section>
+
+{% endcase %}

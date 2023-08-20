@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: " en-UK" }}">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="shortcut icon" type="image/svg" href="/assets/site/logo.svg">
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  <!-- netlify identity widget -->
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- flowbite js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+  <!-- Adding Analytics -->
+  {% if jekyll.environment == 'production' %}
+  <script>
+    !function () {
+      var analytics = window.analytics = window.analytics || []; if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
+        analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"]; analytics.factory = function (e) { return function () { var t = Array.prototype.slice.call(arguments); t.unshift(e); analytics.push(t); return analytics } }; for (var e = 0; e < analytics.methods.length; e++) { var key = analytics.methods[e]; analytics[key] = analytics.factory(key) } analytics.load = function (key, e) { var t = document.createElement("script"); t.type = "text/javascript"; t.async = !0; t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js"; var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(t, n); analytics._loadOptions = e }; analytics._writeKey = "GDDtE8uivSdjzyPe9bLTOl0XQHEZaQvN";; analytics.SNIPPET_VERSION = "4.15.3";
+        analytics.load("GDDtE8uivSdjzyPe9bLTOl0XQHEZaQvN");
+        analytics.page();
+      }
+    }();
+  </script>
+  {% endif %}
+</head>
+
+<body style="background-color: {{ site.background-colour }};">
+  <!-- navbar include -->
+  {% include navbar.html %}
+
+  <!-- formatting the post date -->
+  {% assign day = page.date | date: "%-d" %}
+
+
+
+  <!-- content from the markdonw file is presented here -->
+  <!-- <article class="prose lg:prose-xl mx-auto mt-24 p-4"></article> -->
+  <section class="pb-24">
+    <div class="relative mb-20 h-96">
+      <img class="object-cover w-full h-full" src="https://i.postimg.cc/Y23w2gc1/pexels-ricardo-esquivel-1586298.jpg"
+        alt="">
+      <img
+        class="absolute bottom-0 left-0 object-cover w-40 h-40 ml-4 -mb-16 rounded-full lg:ml-12 lg:-mb-24 lg:w-60 lg:h-60"
+        src="https://i.postimg.cc/q7pv50zT/pexels-edmond-dant-s-4342352.jpg" alt="">
+    </div>
+    <div class="max-w-3xl px-4 mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-700 mb-14 lg:text-5xl dark:text-gray-400">
+        {{ page.title }}
+      </h2>
+      <div class="inline-flex items-center mb-10 lg:mb-14">
+        <img class="w-20 h-20 mr-6 rounded-full object-cover lg:w-24 lg:h-24"
+          src="{{ page.image }}" alt="">
+        <div class="text-left">
+          <h2 class="mb-1 text-2xl font-bold text-gray-700 dark:text-gray-400">Sriyana Henry</h2>
+          <p class="text-gray-700 dark:text-gray-400">{{ page.date }}</p>
+        </div>
+      </div>
+      <article class="content prose lg:prose-xl mx-auto mt-24 p-4">
+        {{ content }}
+      </article>
+    </div>
+  </section>
+
+
+
+  <!-- adding in the global footer -->
+  {% include footer.html %}
+
+</body>
+
+</html>

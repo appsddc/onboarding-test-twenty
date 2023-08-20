@@ -1,0 +1,15 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+{% assign text-font = site.data.font.font.text %}
+
+<section class="w-full {{ include.background-colour }}">
+    <article id="{{ include.anchor }}" class="prose lg:prose-xl mx-auto p-4 py-8">
+        <div class="{{ include.title-alignment }}">
+          <h1 class="{{ title-font }}">{{ include.title }}</h1>
+          <p class="{{ subtitle-font }}">{{ include.subtitle }}</p>
+        </div>
+        <div class="{{ include.text-alignment }} {{ text-font }} {{ include.text-colour }}">
+          {{ section.Markdown | markdownify }}
+        </div>
+      </article>
+</section>

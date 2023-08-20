@@ -1,0 +1,31 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+
+<section class="w-full {{ include.background-colour }}">
+    <div id="{{ include.anchor }}" class="prose lg:prose-xl mx-auto p-4 pb-8">
+        <div class="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
+            <h1 class="mb-8 lg:mb-16 font-extrabold tracking-tight leading-tight text-center text-gray-900 {{ title-font }}">{{ section.block-title }}</h1>
+            {% case include.customer-logos.size %}
+                {% when 1 %}
+                    <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-1 lg:grid-cols-1">
+                {% when 2 %}
+                    <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-1 lg:grid-cols-2">
+                {% when 3 %}
+                    <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-2 lg:grid-cols-3">
+                {% when 4 %}
+                    <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-2 lg:grid-cols-4">
+                {% when 5 %}
+                    <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-5">
+                {% else %}
+                    <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6">
+                {% endcase %}
+            
+                {% for item in include.customer-logos %}
+                    <a href="{{ item.link }}" class="flex justify-center items-center">
+                        <img class="h-9" viewBox="0 0 86 29" fill="currentColor" src="{{ item.logo }}" alt="{{ item.name }}">
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

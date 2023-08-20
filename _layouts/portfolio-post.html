@@ -1,0 +1,170 @@
+{% assign title-font = site.data.font.font.title %}
+{% assign subtitle-font = site.data.font.font.subtitle %}
+{% assign text-font = site.data.font.font.text %}
+
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: " en-UK" }}">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>{{ page.title }} - {{ site.title }}</title>
+
+  {% if site.favicon %}
+    <link rel="shortcut icon" type="image/svg" href="{{ site.favicon }}">
+  {% else %}
+    <link rel="shortcut icon" type="image/svg" href="/assets/site/logo.svg">
+  {% endif %}
+
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  <!-- netlify identity widget -->
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- flowbite js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+  <!-- preline js -->
+  <script src="https://cdn.jsdelivr.net/npm/preline@1.7.0/dist/preline.js"></script>
+  <!-- Adding Analytics -->
+  {% if jekyll.environment == 'production' %}
+  <script>
+    !function () {
+      var analytics = window.analytics = window.analytics || []; if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
+        analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"]; analytics.factory = function (e) { return function () { var t = Array.prototype.slice.call(arguments); t.unshift(e); analytics.push(t); return analytics } }; for (var e = 0; e < analytics.methods.length; e++) { var key = analytics.methods[e]; analytics[key] = analytics.factory(key) } analytics.load = function (key, e) { var t = document.createElement("script"); t.type = "text/javascript"; t.async = !0; t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js"; var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(t, n); analytics._loadOptions = e }; analytics._writeKey = "GDDtE8uivSdjzyPe9bLTOl0XQHEZaQvN";; analytics.SNIPPET_VERSION = "4.15.3";
+        analytics.load("GDDtE8uivSdjzyPe9bLTOl0XQHEZaQvN");
+        analytics.page();
+      }
+    }();
+  </script>
+  {% endif %}
+
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- &family=Nunito:wght@300&family=Oswald&family=Playfair+Display&family=Press+Start+2P&family=Rubik&display=swap -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
+
+  <!-- seo plugin -->
+  {% seo %}
+</head>
+
+<body style="background-color: {{ site.background-colour }};">
+  <!-- navbar include -->
+  {% include navbar.html %}
+
+  <!-- formatting the post date -->
+  {% assign day = page.date | date: "%-d" %}
+
+  <!-- include for facebook messenger -->
+  {% if site.data.messenger.visible %}
+    {% include messenger.html %}
+  {% endif %}
+
+  <!-- category background colour -->
+  {% case site.data.portfolio-config.category-config.background-colour %}
+
+  {% when 'white' %}
+  {% assign post-category-background-colour = 'bg-white' %}
+  {% when 'secondary' %}
+  {% assign post-category-background-colour = 'bg-secondary' %}
+  {% when 'tertiary' %}
+  {% assign post-category-background-colour = 'bg-tertiary' %}
+  {% when 'black' %}
+  {% assign post-category-background-colour = 'bg-black' %}
+  {% when 'grey' %}
+  {% assign post-category-background-colour = 'bg-gray-500' %}
+  {% when 'light-grey' %}
+  {% assign post-category-background-colour = 'bg-gray-100' %}
+  {% when 'transparent' %}
+  {% assign post-category-background-colour = 'bg-transparent' %}
+  {% else %}
+  {% assign post-category-background-colour = 'bg-primary' %}
+
+  {% endcase %}
+
+
+  <!-- category text colour -->
+  {% case site.data.portfolio-config.category-config.text-colour %}
+
+  {% when 'primary' %}
+  {% assign post-category-text-colour = 'text-primary' %}
+  {% when 'secondary' %}
+  {% assign post-category-text-colour = 'text-secondary' %}
+  {% when 'tertiary' %}
+  {% assign post-category-text-colour = 'text-tertiary' %}
+  {% when 'black' %}
+  {% assign post-category-text-colour = 'text-black' %}
+  {% when 'grey' %}
+  {% assign post-category-text-colour = 'text-gray-500' %}
+  {% when 'light-grey' %}
+  {% assign post-category-text-colour = 'text-gray-100' %}
+  {% when 'transparent' %}
+  {% assign post-category-text-colour = 'text-transparent' %}
+  {% else %}
+  {% assign post-category-text-colour = 'text-white' %}
+
+  {% endcase %}
+
+
+  <!-- date text colour -->
+  {% case site.data.portfolio-config.colour-config.date-colour %}
+
+  {% when 'primary' %}
+  {% assign date-text-colour = 'text-primary' %}
+  {% when 'secondary' %}
+  {% assign date-text-colour = 'text-secondary' %}
+  {% when 'tertiary' %}
+  {% assign date-text-colour = 'text-tertiary' %}
+  {% when 'black' %}
+  {% assign date-text-colour = 'text-black' %}
+  {% when 'white' %}
+  {% assign date-text-colour = 'text-white' %}
+  {% when 'light-grey' %}
+  {% assign date-text-colour = 'text-gray-100' %}
+  {% when 'transparent' %}
+  {% assign date-text-colour = 'text-transparent' %}
+  {% else %}
+  {% assign date-text-colour = 'text-gray-500' %}
+
+  {% endcase %}
+
+
+
+<!-- content from the markdonw file is presented here -->
+<section class="py-24 bg-white">
+  <div class="container px-4 mx-auto">
+      <div class="mx-auto mb-12 text-center md:max-w-2xl">
+          <div
+              class="inline-block px-3 py-1 mb-4 text-xs leading-5 {{ subtitle-font }} {{ post-category-text-colour }} uppercase {{ post-category-background-colour }} rounded-full shadow-sm">
+              {{ page.category }}</div>
+          <h2
+              class="{{ title-font }} mb-4 text-3xl font-bold leading-tight tracking-tighter text-gray-900 md:text-5xl">
+              {{ page.title }}</h2>
+          <p class="{{ subtitle-font }} mb-4 text-lg text-gray-500 md:text-xl">
+              {{ page.description }}</p>
+          <div class="{{ subtitle-font }} flex items-center justify-center">
+              <p class="inline-block {{ date-text-colour }}">{{ page.date | date: "%A, %B %d, %Y" }}</p>
+          </div>
+      </div>
+      <div class="max-w-6xl mx-auto mb-10 overflow-hidden rounded-lg h-[650px]">
+          <img class="object-cover w-full h-full"
+              src="{{ page.image }}"
+              alt="portfolio-cover-image">
+      </div>
+      <div class="{{ text-font }} mx-auto md:max-w-3xl prose">
+        {{ content }}
+      </div>
+  </div>
+</section>
+
+
+
+  <!-- adding in the global footer -->
+  {% include footer.html %}
+
+</body>
+
+</html>

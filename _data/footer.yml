@@ -1,0 +1,67 @@
+link-sections:
+  - title: Pages
+    links:
+      - title: About
+        href: /about
+        type: "-"
+      - title: Contact
+        href: /contact
+        type: "-"
+      - title: Staff
+        href: /staff
+        type: "-"
+      - title: FAQs
+        href: /faq
+        type: "-"
+  - title: Contact
+    links:
+      - title: Email
+        href: info@kleaver.ie
+        type: "mailto:"
+      - title: Phone
+        href: "0123456789"
+        type: "tel:"
+caption: Give your business the cutting edge
+copyright:
+  year: 2023
+  business: Kleaver
+  link: https://kleaver.ie
+  message: All Rights Reserved.
+socials:
+  facebook:
+    visible: true
+    username: kleaver
+  instagram:
+    visible: true
+    username: kleaver
+  tiktok:
+    visible: true
+    username: kleaver
+  twitter:
+    visible: true
+    username: kleaver
+  youtube:
+    visible: true
+    username: kleaver
+  linkedin:
+    visible: true
+    username: kleaver
+  whatsapp:
+    visible: true
+    username: kleaver
+colour:
+  background-colour: bg-primary
+  branding-text-colour: text-gray-100
+  main-text-colour: text-gray-100
+  highlight-text-colour: hover:text-gray-500
+  divider-colour: border-gray-100
+address:
+  text-colour: text-gray-100
+  line-one: Line One
+  line-two: Line Two
+  line-three: Line Three
+  link: google.ie
+phone:
+  text-colour: text-gray-100
+  number: "012345678"
+  text: 01-234-5678

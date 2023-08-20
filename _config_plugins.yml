@@ -1,0 +1,14 @@
+plugins:
+  - jekyll-postcss
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+gems:
+  - jekyll-paginate-v2
+
+exclude:
+  - package.json
+  - postcss.config.js
+  - tailwind.config.js
+  - yarn.lock
+  

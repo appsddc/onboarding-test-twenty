@@ -1,0 +1,41 @@
+items:
+  - name: Home
+    link: /
+  - name: Portfolio
+    link: /portfolio
+  - name: About
+    link: /about
+  - name: Pricing
+    link: /pricing
+  - name: FAQs
+    link: /faq
+mobile:
+  text-colour: text-white
+  text-hover-colour: hover:text-white
+  background-colour: bg-secondary
+  background-hover-colour: hover:bg-white
+  border-colour: border-secondary
+  border-hover-colour: hover:border-white
+general:
+  background-colour: bg-primary
+  title-colour: text-white
+  text-colour: text-white
+  text-hover-colour: hover:text-gray-500
+hamburger:
+  icon-colour: text-gray-500
+  icon-hover-colour: hover:text-gray-500
+  background-colour: bg-gray-100
+  background-hover-colour: hover:bg-secondary
+  border-colour: border-gray-100
+  border-hover-colour: hover:border-white
+action-button:
+  visible: hidden md:flex
+  text: Log in
+  href: /kleaver
+  colour:
+    text-colour: text-primary
+    text-hover-colour: hover:text-white
+    background-colour: bg-white
+    background-hover-colour: hover:bg-secondary
+    border-colour: border-white
+    border-hover-colour: hover:border-primary

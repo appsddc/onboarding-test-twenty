@@ -1,0 +1,9 @@
+font:
+  navbar: font-default
+  footer: font-default
+  form: font-default
+  title: font-default
+  subtitle: font-default
+  text: font-default
+  portfolio: font-default
+  button: font-default
